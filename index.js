@@ -14,11 +14,10 @@ function axiosHTTPRequest(url, cityName) {
   axios.get(url).then((response) => {
     const weatherData = response.data;
 
-    const section = document.querySelector("section#show-weather");
-
-    const h2 = document.createElement("h2");
-    const p = document.createElement("p");
-    const img = document.createElement("img");
+    const section = document.querySelector("section.show-weather");
+    const h2 = section.querySelector("h2");
+    const p = section.querySelector("p");
+    const img = section.querySelector("img");
 
     const temperature = weatherData.main.temp - 273.15;
     const feelsLike = weatherData.main.feels_like - 273.15;
@@ -27,17 +26,13 @@ function axiosHTTPRequest(url, cityName) {
 
     h2.innerText = `Weather of ${cityName}`;
 
-    p.innerText = `Actual temperature of ${cityName} is ${temperature.toFixed(
-      2
-    )} celsius and feels like temperature is ${feelsLike.toFixed(2)} celsius`;
+    p.innerText = `Actual temperature of ${cityName} is ${Math.round(
+      temperature.toFixed(2)
+    )} celsius and feels like temperature is ${Math.round(
+      feelsLike.toFixed(2)
+    )} celsius`;
 
     img.src = `https://openweathermap.org/img/wn/${source}@2x.png`;
-
-    section.classList = "show-weather";
-
-    section.append(h2);
-    section.append(p);
-    section.append(img);
 
     window.location.href = "/index.html#show-weather";
   });
